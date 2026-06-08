@@ -1,8 +1,7 @@
 from customtkinter import *
 from time import sleep as pause
-
-
-
+from Barra_Tarefas import Barra_Tarefas
+from Area_Trabalho import Area_Trabalho
 
 
 class App(CTk):
@@ -12,20 +11,19 @@ class App(CTk):
         self.logo()
         self.mainloop()
 
-    
 
     def logo(self):
+        self.overrideredirect(True)
         janela_A = 400
         janela_L = 500
         tela_A = (self.winfo_screenheight() // 2) - (janela_A // 2)
         tele_L = (self.winfo_screenwidth() // 2) - (janela_L // 2)
-
         self.geometry(f"{janela_L}x{janela_A}+{tele_L}+{tela_A}")
         self.after(3000, self.configuração)
 
 
-
     def configuração(self):
+        self.overrideredirect(False)
         self.title("Pack de Programas")
         janela_A = 1200
         janela_L = 1500
@@ -33,15 +31,18 @@ class App(CTk):
         tele_L = (self.winfo_screenwidth() // 2) - (janela_L // 2)
         self.geometry(f"{janela_L}x{janela_A}+{tele_L}+{tela_A}")
         self.attributes("-fullscreen", True)
+        self.layout()
     
-
 
     def layout(self):
-        pass
+        self.Area_Trabalho_F : CTkFrame = Area_Trabalho(self)
+        self.Barra_Tarefas_F : CTkFrame = Barra_Tarefas(self)
+
+
+    def fechar(self):
+        self.destroy()
+
     
 
-
-    
-
-
-app = App()
+if __name__ == "__main__":
+    app = App()
