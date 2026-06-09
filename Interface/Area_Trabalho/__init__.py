@@ -24,12 +24,12 @@ class Area_Trabalho(CTkFrame):
 
     def papel_parede(self):
         largura_T = self.master.winfo_screenwidth()
-        altura_T = self.master.winfo_screenheight() - (self.master.winfo_screenheight() * 0.05)
+        altura_T = (self.master.winfo_screenheight() - (self.master.winfo_screenheight() * 0.05))
 
-        image_path : Path  = Path.cwd() / "Imagens/02.png"
+        image_path : Path  = Path.cwd() / "Imagens/03.png"
 
         image = Image.open(image_path)
-        papel_parede_I : CTkImage = CTkImage(light_image=image, dark_image=image, size=(largura_T, largura_T))
+        papel_parede_I : CTkImage = CTkImage(light_image=image, dark_image=image, size=(largura_T, altura_T))
 
         image_L : CTkLabel = CTkLabel(self, text="", image=papel_parede_I, bg_color="BLACK")
         image_L.bind("<Button-3>", lambda e: self.abrir_menu(e))
