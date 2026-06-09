@@ -3,7 +3,9 @@ from Interface.Menu_s.area_trabalho import criar_menu
 from tkinter import Menu
 from PIL import Image
 from pathlib import Path
-from programas import loja_de_jogos
+from programas import (
+        loja_de_jogos, navegadores, comunicacao, Diagnosticos
+    )
 
 class Area_Trabalho(CTkFrame):
 
@@ -11,7 +13,10 @@ class Area_Trabalho(CTkFrame):
         self.master = master
         super().__init__(self.master, fg_color="#27558F", corner_radius=0)
         self.papel_parede()
-        self.icones()
+        self.icones_lojas()
+        self.icones_comunicacao()
+        self.icones_diagnosticos()
+        self.icones_navegadores()
         self.config()
         
     
@@ -42,24 +47,95 @@ class Area_Trabalho(CTkFrame):
 
 
 
-    def icones(self):
+    def icones_lojas(self):
         for loja in loja_de_jogos:
             
 
             image_path : Path = Path.cwd() / f"Imagens/icones/{loja}.png"
             icon_image = Image.open(image_path)
 
-            image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(24, 24))
+            if loja in ("Riot"):
+                image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(39, 30))
+            else:
+                image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(29, 29))
+
+
+            icon : CTkButton = CTkButton(self, image=image, corner_radius=0,
+                                         text="",
+                                         fg_color="WHITE", text_color="WHITE",)
+            
+            icon.bind("<Double-Button-1>", lambda e: self.double_click(e, loja))
+            icon.place(relx=loja_de_jogos.get(loja).get("pos_x"), rely=loja_de_jogos.get(loja).get("pos_y"),
+                        relwidth=loja_de_jogos.get(loja).get("width"))
+        
+
+
+    def icones_navegadores(self):
+        for nav in navegadores:
+            
+            if nav == "Chrome":
+                continue
+
+            image_path : Path = Path.cwd() / f"Imagens/icones/{nav}.png"
+            icon_image = Image.open(image_path)
+
+            image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(29, 29))
 
 
             icon : CTkButton = CTkButton(self, image=image, corner_radius=0,
                                          text="",
                                          fg_color="BLACK", text_color="WHITE",)
             
-            icon.bind("<Double-Button-1>", lambda e: self.double_click(e, loja))
-            icon.place(relx=loja_de_jogos.get(loja).get("pos_x"), rely=loja_de_jogos.get(loja).get("pos_y"),
-                        relwidth=loja_de_jogos.get(loja).get("width"))
+            icon.bind("<Double-Button-1>", lambda e: self.double_click(e, nav))
+            icon.place(relx=navegadores.get(nav).get("pos_x"), rely=navegadores.get(nav).get("pos_y"),
+                        relwidth=navegadores.get(nav).get("width"))
+            
+    
+
+    def icones_comunicacao(self):
+        for app in comunicacao:
+            
+
+
+            image_path : Path = Path.cwd() / f"Imagens/icones/{app}.png"
+            icon_image = Image.open(image_path)
+
+            if app in ("Discord", "Teams"):
+                image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(39, 30))
+            else:
+                image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(29, 29))
+
+
+            icon : CTkButton = CTkButton(self, image=image, corner_radius=0,
+                                         text="",
+                                         fg_color="BLACK", text_color="WHITE",)
+            
+            icon.bind("<Double-Button-1>", lambda e: self.double_click(e, app))
+            icon.place(relx=comunicacao.get(app).get("pos_x"), rely=comunicacao.get(app).get("pos_y"),
+                        relwidth=comunicacao.get(app).get("width"))
+            
         
+
+    def icones_diagnosticos(self):
+        for app in Diagnosticos:
+            
+
+            image_path : Path = Path.cwd() / f"Imagens/icones/{app}.png"
+            icon_image = Image.open(image_path)
+
+            if app in ("Riot"):
+                image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(39, 30))
+            else:
+                image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(29, 29))
+
+
+            icon : CTkButton = CTkButton(self, image=image, corner_radius=0,
+                                         text="",
+                                         fg_color="WHITE", text_color="WHITE",)
+            
+            icon.bind("<Double-Button-1>", lambda e: self.double_click(e, app))
+            icon.place(relx=Diagnosticos.get(app).get("pos_x"), rely=Diagnosticos.get(app).get("pos_y"),
+                        relwidth=Diagnosticos.get(app).get("width"))
 
 
     def double_click(self, e, nome_programa : str):
