@@ -1,15 +1,19 @@
-from customtkinter import CTkFrame, CTkImage, CTkLabel
+from customtkinter import CTkFrame, CTkImage, CTkLabel, CTkButton
 from Interface.Menu_s.area_trabalho import criar_menu
 from tkinter import Menu
 from PIL import Image
 from pathlib import Path
+from programas import loja_de_jogos
 
 class Area_Trabalho(CTkFrame):
+
     def __init__(self, master):
         self.master = master
         super().__init__(self.master, fg_color="#27558F", corner_radius=0)
         self.papel_parede()
+        self.icones()
         self.config()
+        
     
 
 
@@ -38,6 +42,25 @@ class Area_Trabalho(CTkFrame):
 
 
 
+    def icones(self):
+        for loja in loja_de_jogos:
+            
+
+            image_path : Path = Path.cwd() / f"Imagens/icones/{loja}.png"
+            icon_image = Image.open(image_path)
+
+            image : CTkImage = CTkImage(light_image=icon_image, dark_image=icon_image, size=(24, 24))
 
 
+            icon : CTkButton = CTkButton(self, image=image, corner_radius=0,
+                                         text="",
+                                         fg_color="BLACK", text_color="WHITE",)
+            
+            icon.bind("<Double-Button-1>", lambda e: self.double_click(e, loja))
+            icon.place(relx=loja_de_jogos.get(loja).get("pos_x"), rely=loja_de_jogos.get(loja).get("pos_y"),
+                        relwidth=loja_de_jogos.get(loja).get("width"))
+        
 
+
+    def double_click(self, e, nome_programa : str):
+        print(f"abrindo {nome_programa}...")
