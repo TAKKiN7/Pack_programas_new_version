@@ -1,8 +1,9 @@
 from customtkinter import *
 from time import sleep as pause
-from Barra_Tarefas import Barra_Tarefas
-from Area_Trabalho import Area_Trabalho
+from Interface.Barra_Tarefas import Barra_Tarefas
+from Interface.Area_Trabalho import Area_Trabalho
 from PIL import Image
+from pathlib import Path
 
 class App(CTk):
     def __init__(self):
@@ -20,7 +21,9 @@ class App(CTk):
         tele_L = (self.winfo_screenwidth() // 2) - (janela_L // 2)
         self.geometry(f"{janela_L}x{janela_A}+{tele_L}+{tela_A}")
 
-        image = Image.open("C:/Users/eustaquio.filho/Documents/pack_programas/Pack_programas_new_version/Imagens/01.png")
+        image_path : Path  = Path.cwd() / "Imagens/01.png"
+
+        image = Image.open(image_path)
         papel_parede_I : CTkImage = CTkImage(light_image=image, dark_image=image, size=(janela_L, janela_A))
 
         image_L : CTkLabel = CTkLabel(self, text="", image=papel_parede_I, bg_color="BLACK")

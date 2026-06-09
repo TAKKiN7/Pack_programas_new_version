@@ -1,7 +1,8 @@
 from customtkinter import CTkFrame, CTkImage, CTkLabel
-from Menu_s.area_trabalho import criar_menu
+from Interface.Menu_s.area_trabalho import criar_menu
 from tkinter import Menu
 from PIL import Image
+from pathlib import Path
 
 class Area_Trabalho(CTkFrame):
     def __init__(self, master):
@@ -15,7 +16,10 @@ class Area_Trabalho(CTkFrame):
     def papel_parede(self):
         largura_T = self.master.winfo_screenwidth()
         altura_T = self.master.winfo_screenheight() - (self.master.winfo_screenheight() * 0.05)
-        image = Image.open("C:/Users/eustaquio.filho/Documents/pack_programas/Pack_programas_new_version/Imagens/02.png")
+
+        image_path : Path  = Path.cwd() / "Imagens/02.png"
+
+        image = Image.open(image_path)
         papel_parede_I : CTkImage = CTkImage(light_image=image, dark_image=image, size=(largura_T, largura_T))
 
         image_L : CTkLabel = CTkLabel(self, text="", image=papel_parede_I, bg_color="BLACK")

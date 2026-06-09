@@ -1,5 +1,5 @@
 from customtkinter import CTkFrame, CTkEntry, CTkLabel
-from Menu_s.barra_tarefas import criar_menu
+from Interface.Menu_s.barra_tarefas import criar_menu
 from tkinter import Menu
 import time
 from threading import Thread
